@@ -1,0 +1,26 @@
+import { parseBackup } from "./backup-schema.ts";
+import { pickAppData } from "./data/app-data-contract.ts";
+import { APP_DATA_SCHEMA_VERSION } from "./data/version.ts";
+import type { AppData } from "./types.ts";
+
+export { mergeAppData } from "./data/merge-app-data.ts";
+
+export type BackupEnvelope = {
+  appName: "زمانک";
+  schemaVersion: typeof APP_DATA_SCHEMA_VERSION;
+  exportedAt: string;
+  data: AppData;
+};
+
+export function createBackupEnvelope(data: AppData, exportedAt = new Date().toISOString()): BackupEnvelope {
+  return {
+    appName: "زمانک",
+    schemaVersion: APP_DATA_SCHEMA_VERSION,
+    exportedAt,
+    data,
+  };
+}
+
+export function parseBackupEnvelope(value: unknown): AppData {
+  return pickAppData(parseBackup(value));
+}

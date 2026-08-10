@@ -1,0 +1,66 @@
+import type { Metadata, Viewport } from "next";
+import "@fontsource-variable/vazirmatn/wght.css";
+import { PwaRegister } from "@/app/pwa-register";
+import { zamaanakShell } from "@/components/zamaanak-shell";
+import { ThemeBootstrap } from "@/components/theme/theme-bootstrap";
+import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL_IMAGE_PATH } from "@/lib/site-metadata";
+import "./globals.css";
+
+const basePath = process.env.PAGES_BASE_PATH ?? "";
+
+export const metadata: Metadata = {
+  metadataBase: absoluteUrl("/"),
+  applicationName: SITE_NAME,
+  title: { default: `${SITE_NAME} | مدیریت زمان و کارکرد`, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  keywords: ["مدیریت زمان", "ثبت ساعت کاری", "کارکرد", "مرخصی", "تایم ترکینگ", "گزارش کار", "پروژه", "زمانک"],
+  category: "productivity",
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  alternates: { canonical: absoluteUrl("/") },
+  manifest: `${basePath}/manifest.webmanifest`,
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: `${SITE_NAME} | مدیریت زمان و کارکرد`,
+    description: SITE_DESCRIPTION,
+    url: absoluteUrl("/"),
+    siteName: SITE_NAME,
+    locale: "fa_IR",
+    type: "website",
+    images: [{ url: absoluteUrl(SOCIAL_IMAGE_PATH), width: 1200, height: 630, alt: `پیش‌نمایش ${SITE_NAME}` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | مدیریت زمان و کارکرد`,
+    description: SITE_DESCRIPTION,
+    images: [absoluteUrl(SOCIAL_IMAGE_PATH)],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f8f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#07171c" },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="fa" dir="rtl" suppressHydrationWarning className="scroll-smooth">
+      <head>
+        <meta name="zamaanak-base" content={basePath} />
+        <meta name="theme-color" content="#06b6d4" data-zamaanak-theme-color />
+        <ThemeBootstrap />
+      </head>
+      <body className="m-0 min-h-screen bg-[var(--page)] font-[Vazirmatn_Variable,Tahoma,sans-serif] font-normal text-[var(--text)] antialiased [font-feature-settings:'ss01'] transition-colors">
+        <PwaRegister />
+        <zamaanakShell>{children}</zamaanakShell>
+      </body>
+    </html>
+  );
+}

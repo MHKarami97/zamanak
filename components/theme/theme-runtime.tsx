@@ -1,0 +1,80 @@
+"use client";
+
+import { useEffect } from "react";
+import { resolveAccent, resolveAccentTokens, THEME_STORAGE_KEY } from "@/lib/theme";
+import type { AppearanceSettings } from "@/lib/types";
+
+let previousFaviconUrl: string | null = null;
+let brandSvgPromise: Promise<string> | null = null;
+
+function basePath() {
+  return document.querySelector('meta[name="zamaanak-base"]')?.getAttribute("content") ?? "";
+}
+
+function loadBrandSvg() {
+  brandSvgPromise ??= fetch(`${basePath()}/brand/zamaanak-mark.svg`).then((response) => {
+    if (!response.ok) throw new Error(`Unable to load brand mark: ${response.status}`);
+    return response.text();
+  });
+  return brandSvgPromise;
+}
+
+async function applyDynamicFavicon(accent: string, strong: string) {
+  try {
+    const source = await loadBrandSvg();
+    const themed = source
+      .replaceAll('fill="rgb(38,38,38)"', `fill="${accent}"`)
+      .replaceAll('fill="rgb(11,12,12)"', `fill="${strong}"`)
+      .replace('viewBox="0 0 2048 2048"', 'viewBox="560 480 960 960"')
+      .replace('width="1024" height="1024"', 'width="512" height="512"')
+      .replace('preserveAspectRatio="none"', 'preserveAspectRatio="xMidYMid meet"');
+    const url = URL.createObjectURL(new Blob([themed], { type: "image/svg+xml" }));
+    let link = document.querySelector<HTMLLinkElement>('link[rel="icon"][data-zamaanak-dynamic]');
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      link.type = "image/svg+xml";
+      link.setAttribute("sizes", "any");
+      link.dataset.zamaanakDynamic = "true";
+      document.head.append(link);
+    }
+    link.href = url;
+    if (previousFaviconUrl) URL.revokeObjectURL(previousFaviconUrl);
+    previousFaviconUrl = url;
+  } catch {
+    // The file-based icon remains available if runtime theming cannot load.
+  }
+}
+
+function applyAppearance(appearance: AppearanceSettings) {
+  const root = document.documentElement;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const resolved = appearance.mode === "system" ? (prefersDark ? "dark" : "light") : appearance.mode;
+  const tokens = resolveAccentTokens(resolveAccent(appearance), resolved);
+  root.dataset.theme = resolved;
+  root.dataset.themeMode = appearance.mode;
+  root.dataset.radius = appearance.radius;
+  root.dataset.surface = appearance.surface;
+  root.style.setProperty("--accent", tokens.accent);
+  root.style.setProperty("--accent-fill", tokens.fill);
+  root.style.setProperty("--accent-foreground", tokens.foreground);
+  root.style.setProperty("--accent-strong", tokens.strong);
+  root.style.colorScheme = resolved;
+
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[data-zamaanak-theme-color]');
+  if (themeColor) themeColor.content = resolved === "dark" ? tokens.strong : tokens.accent;
+  void applyDynamicFavicon(tokens.accent, tokens.strong);
+}
+
+export function ThemeRuntime({ appearance }: { appearance: AppearanceSettings }) {
+  useEffect(() => {
+    applyAppearance(appearance);
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(appearance));
+    if (appearance.mode !== "system") return;
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = () => applyAppearance(appearance);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [appearance]);
+  return null;
+}

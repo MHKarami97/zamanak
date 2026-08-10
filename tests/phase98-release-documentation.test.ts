@@ -1,0 +1,59 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+
+const read = (path: string) => readFileSync(path, "utf8");
+
+const readmeFa = read("README_FA.md");
+const readmeEn = read("README.md");
+const troubleshootingFa = read("docs/TROUBLESHOOTING_FA.md");
+const troubleshootingEn = read("docs/TROUBLESHOOTING_EN.md");
+const browserCompatibility = read("docs/BROWSER_COMPATIBILITY.md");
+const backlog = read("docs/roadmap/BACKLOG_FA.md");
+const packageJson = JSON.parse(read("package.json")) as { scripts: { test: string } };
+
+test("Persian and English READMEs link to each other", () => {
+  assert.match(readmeFa, /\[English\]\(\.\/README\.md\)/);
+  assert.match(readmeEn, /\[فارسی\]\(\.\/README_FA\.md\)/);
+  assert.match(readmeEn, /local-first/i);
+  assert.match(readmeEn, /more than \*\*600 tests\*\*/i);
+});
+
+test("release documentation exposes Windows and npm recovery paths", () => {
+  for (const document of [troubleshootingFa, troubleshootingEn]) {
+    assert.match(document, /npm ci/);
+    assert.match(document, /npm run check:dependencies/);
+    assert.match(document, /E404/);
+    assert.match(document, /EPERM/);
+    assert.match(document, /EBUSY/);
+    assert.match(document, /index\.lock/);
+    assert.match(document, /zamaanak_BROWSER_PATH/);
+  }
+});
+
+test("browser matrix distinguishes web APIs from the automated release gate", () => {
+  assert.match(browserCompatibility, /Chrome/);
+  assert.match(browserCompatibility, /Edge/);
+  assert.match(browserCompatibility, /Firefox/);
+  assert.match(browserCompatibility, /Safari/);
+  assert.match(browserCompatibility, /IndexedDB/);
+  assert.match(browserCompatibility, /BroadcastChannel/);
+  assert.match(browserCompatibility, /Service Worker/);
+  assert.match(browserCompatibility, /Notification/);
+  assert.match(browserCompatibility, /production-browser-smoke\.mjs/);
+  assert.match(browserCompatibility, /Local Notification/);
+});
+
+test("completed non-visual documentation backlog items are closed", () => {
+  assert.doesNotMatch(backlog, /- \[ \] ایجاد README انگلیسی مستقل/);
+  assert.doesNotMatch(backlog, /- \[ \] افزودن راهنمای عیب‌یابی نصب در Windows/);
+  assert.doesNotMatch(backlog, /- \[ \] اضافه‌کردن جدول سازگاری مرورگر/);
+  assert.doesNotMatch(backlog, /- \[ \] افزودن اسکرین‌شات‌های به‌روز/);
+  assert.doesNotMatch(backlog, /- \[ \] تهیه GIF یا ویدیوی کوتاه/);
+  assert.match(readmeFa, /docs\/assets\/screenshots\/today-light-desktop\.png/);
+  assert.match(readmeEn, /docs\/assets\/media\/onboarding\.gif/);
+});
+
+test("phase 98 documentation contract is part of npm test", () => {
+  assert.match(packageJson.scripts.test, /tests\/phase98-release-documentation\.test\.ts/);
+});

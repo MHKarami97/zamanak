@@ -1,0 +1,19 @@
+{
+  "name": "زمانک",
+  "short_name": "زمانک",
+  "description": "ثبت کارکرد، مرخصی و زمان پروژه به‌صورت محلی",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f8f7",
+  "theme_color": "#1d9b68",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

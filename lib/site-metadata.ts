@@ -1,0 +1,85 @@
+import type { Metadata } from "next";
+
+export const SITE_NAME = "زمانک";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://zamaanak.ir";
+export const SITE_DESCRIPTION = "مدیریت فارسی و آفلاین ساعت کاری، حضور، مرخصی، پروژه و گزارش‌های شخصی";
+export const SOCIAL_IMAGE_PATH = "/og/zamaanak-social-card.png";
+
+export const ROUTE_METADATA = {
+  today: {
+    title: "امروز",
+    description: "ثبت ورود، خروج، ناهار، وقفه و یادداشت روز کاری در زمانک.",
+    path: "/today/",
+  },
+  month: {
+    title: "ماه من",
+    description: "نمای ماهانه کارکرد، هدف روزانه و وضعیت روزهای کاری در زمانک.",
+    path: "/month/",
+  },
+  leave: {
+    title: "مرخصی‌ها",
+    description: "ثبت و مدیریت مرخصی‌ها، مانده مرخصی و روزهای غیرکاری.",
+    path: "/leave/",
+  },
+  reports: {
+    title: "گزارش‌ها",
+    description: "گزارش فارسی کارکرد، اضافه‌کاری، درآمد و فعالیت‌های ثبت‌شده.",
+    path: "/reports/",
+  },
+  clients: {
+    title: "مشتری‌ها",
+    description: "مدیریت مشتری‌ها و دسترسی سریع به پروژه‌ها و زمان‌های قابل‌صورتحساب.",
+    path: "/clients/",
+  },
+  projects: {
+    title: "پروژه‌ها",
+    description: "مدیریت پروژه‌ها، بودجه، زمان ثبت‌شده و وضعیت مالی پروژه‌ها.",
+    path: "/projects/",
+  },
+  invoices: {
+    title: "فاکتورها",
+    description: "ایجاد و مدیریت فاکتورهای فارسی بر اساس پروژه و زمان ثبت‌شده.",
+    path: "/invoices/",
+  },
+  settings: {
+    title: "تنظیمات",
+    description: "تنظیم ظاهر، برنامه کاری، اعلان‌ها، پشتیبان‌گیری و داده‌های زمانک.",
+    path: "/settings/",
+  },
+} as const;
+
+export const ABOUT_METADATA = {
+  title: "درباره و راهنما",
+  description: "راهنمای استفاده، حریم خصوصی، کد منبع و راه‌های ارتباط با سازنده زمانک.",
+  path: "/about/",
+} as const;
+
+type RouteMetadata = (typeof ROUTE_METADATA)[keyof typeof ROUTE_METADATA] | typeof ABOUT_METADATA;
+
+export function absoluteUrl(path = "/") {
+  return new URL(path, SITE_URL);
+}
+
+export function createPageMetadata(page: RouteMetadata): Metadata {
+  const fullTitle = `${page.title} | ${SITE_NAME}`;
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: absoluteUrl(page.path) },
+    openGraph: {
+      title: fullTitle,
+      description: page.description,
+      url: absoluteUrl(page.path),
+      siteName: SITE_NAME,
+      locale: "fa_IR",
+      type: "website",
+      images: [{ url: absoluteUrl(SOCIAL_IMAGE_PATH), width: 1200, height: 630, alt: `پیش‌نمایش ${SITE_NAME}` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: page.description,
+      images: [absoluteUrl(SOCIAL_IMAGE_PATH)],
+    },
+  };
+}

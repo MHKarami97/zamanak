@@ -1,0 +1,75 @@
+"use client";
+
+import { AlertTriangle, CheckCircle2, RotateCcw, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { cn } from "@/lib/cn";
+import { getRecordStatus } from "@/lib/record-health";
+import type { WorkRecord } from "@/lib/types";
+
+export function RecordHealthBanner({ record, onReset }: { record: WorkRecord; onReset: () => void }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const status = getRecordStatus(record);
+  if (status.state === "empty" || (record.needsReview && record.autoClosedAt)) return null;
+
+  const healthy = status.state === "complete";
+  const confirmReset = () => {
+    onReset();
+    setConfirmOpen(false);
+  };
+
+  return (
+    <>
+      <section className={cn(
+        "mb-4 flex flex-wrap items-start justify-between gap-3 rounded-2xl border px-4 py-3",
+        healthy ? "border-[color-mix(in_srgb,var(--success)_28%,var(--border))] bg-[var(--success-soft)] text-[var(--success)]" : "border-[color-mix(in_srgb,var(--warning)_28%,var(--border))] bg-[var(--warning-soft)] text-[var(--warning)]",
+      )}>
+        <div className="flex min-w-0 items-start gap-3">
+          {healthy ? <CheckCircle2 className="mt-0.5 size-5 shrink-0" /> : <AlertTriangle className="mt-0.5 size-5 shrink-0" />}
+          <div>
+            <strong className="text-xs font-extrabold">وضعیت رکورد: {status.label}</strong>
+            {status.issues.length > 0 ? (
+              <ul className="mt-1 grid gap-1 text-[10px] leading-5">
+                {status.issues.map((issue, index) => <li key={`${issue.code}-${index}`}>• {issue.message}</li>)}
+              </ul>
+            ) : (
+              <p className="mt-1 text-[10px]">ورود، خروج و بازه‌های استراحت معتبر هستند.</p>
+            )}
+          </div>
+        </div>
+        <Button type="button" variant="outline" size="sm" onClick={() => setConfirmOpen(true)} className="rounded-xl bg-[var(--surface-1)]">
+          <RotateCcw className="size-4" /> پاک‌کردن رکورد روز
+        </Button>
+      </section>
+
+      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>رکورد این روز پاک شود؟</AlertDialogTitle>
+            <AlertDialogDescription>
+              ورود، خروج، ناهار، وقفه‌ها و یادداشت این روز حذف می‌شوند. پس از تأیید، برای چند ثانیه امکان بازگردانی کامل رکورد نمایش داده می‌شود؛ بعد از پایان این فرصت فقط نسخه پشتیبان یا بازیابی می‌تواند کمک کند.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex items-start gap-3 rounded-[var(--control-radius)] border border-[color-mix(in_srgb,var(--danger)_25%,var(--border))] bg-[color-mix(in_srgb,var(--danger)_8%,var(--surface-1))] px-3 py-3 text-xs leading-6 text-[var(--danger)]">
+            <Trash2 className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+            فقط وقتی مطمئن هستی رکورد اشتباه است، پاک‌کردن را تأیید کن.
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogAction className="bg-[var(--danger)] text-white hover:opacity-90" onClick={confirmReset}>بله، رکورد پاک شود</AlertDialogAction>
+            <AlertDialogCancel>انصراف</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}
