@@ -6,8 +6,6 @@ const read = (path: string) => readFileSync(path, "utf8");
 const todayPage = read("components/pages/today/today-page.tsx");
 const editor = read("components/pages/today/completed-day-editor.tsx");
 const smoke = read("scripts/employee-browser-ux-smoke.mjs");
-const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-const pkg = JSON.parse(read("package.json")) as { scripts: Record<string, string> };
 
 test("today editor remounts when a live record becomes completed", () => {
   assert.match(todayPage, /key=\{`\$\{props\.selectedDate\}:\$\{props\.record\.start && props\.record\.end \? "completed" : "active"\}`\}/);

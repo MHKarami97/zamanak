@@ -6,7 +6,6 @@ import { buildEmployeePersistenceProbeExpression } from "../scripts/employee-per
 const read = (path: string) => readFileSync(path, "utf8");
 const pkg = JSON.parse(read("package.json")) as { scripts: Record<string, string> };
 const smoke = read("scripts/employee-browser-ux-smoke.mjs");
-const roadmap = read("docs/roadmap/BACKLOG_FA.md");
 
 function compileExpression(expression: string) {
   assert.doesNotThrow(() => new Function(`return (${expression});`));

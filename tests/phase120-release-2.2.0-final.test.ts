@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { collectReleaseAuditFailures } from "../scripts/release-audit.mjs";
 
 const read = (path: string) => readFileSync(path, "utf8");
 const manifest = JSON.parse(read("docs/releases/2.2.0.json")) as Record<string, unknown> & {
@@ -18,7 +17,6 @@ const manifest = JSON.parse(read("docs/releases/2.2.0.json")) as Record<string, 
     pairingEncryptedChunks: number;
   };
 };
-const packageJson = JSON.parse(read("package.json")) as { scripts: Record<string, string> };
 
 test("historical 2.2.0 final manifest remains released on schema v17", () => {
   assert.equal(manifest.version, "2.2.0");

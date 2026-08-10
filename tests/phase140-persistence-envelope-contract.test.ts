@@ -1,9 +1,7 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import test from "node:test";
 import { buildFreelancerPersistenceProbeExpression } from "../scripts/freelancer-persistence-expression.mjs";
 
-const read = (path: string) => readFileSync(path, "utf8");
 const params = {
   clientName: "مشتری مرورگر",
   projectName: "پروژه مرورگر",

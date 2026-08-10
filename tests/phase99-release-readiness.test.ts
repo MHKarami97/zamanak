@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { collectReleaseAuditFailures } from "../scripts/release-audit.mjs";
 
 const read = (path: string) => readFileSync(path, "utf8");
 const packageJson = JSON.parse(read("package.json")) as {

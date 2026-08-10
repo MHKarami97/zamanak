@@ -4,11 +4,6 @@ import test from "node:test";
 
 const read = (path: string) => readFileSync(path, "utf8");
 
-function pngSize(path: string) {
-  const buffer = readFileSync(path);
-  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
-}
-
 test("PWA install identity uses the approved zamaanak mark and compact app name", () => {
   const manifest = read("app/manifest.ts");
   assert.match(manifest, /name: SITE_NAME,/);

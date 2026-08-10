@@ -1,12 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { collectReleaseAuditFailures } from "../scripts/release-audit.mjs";
 
 const read = (path: string) => readFileSync(path, "utf8");
-const packageJson = JSON.parse(read("package.json")) as {
-  scripts: Record<string, string>;
-};
+
 const manifest = JSON.parse(read("docs/releases/2.3.0.json")) as {
   version: string;
   releaseDate: string;
@@ -24,15 +21,6 @@ const manifest = JSON.parse(read("docs/releases/2.3.0.json")) as {
   releaseNotes: { fa: string; en: string };
   tag: string;
 };
-
-const requiredMedia = [
-  "docs/assets/screenshots/today-light-desktop.png",
-  "docs/assets/screenshots/today-dark-desktop.png",
-  "docs/assets/screenshots/today-mobile.png",
-  "docs/assets/screenshots/reports-light.png",
-  "docs/assets/screenshots/reports-dark.png",
-  "docs/assets/media/onboarding.gif",
-];
 
 test("historical 2.3.0 candidate version Node schema and tag remain immutable", () => {
   assert.equal(manifest.version, "2.3.0");

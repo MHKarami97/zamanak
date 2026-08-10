@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { APP_DATA_SCHEMA_VERSION } from "../lib/data/version.ts";
-import { collectReleaseAuditFailures } from "../scripts/release-audit.mjs";
 
 const read = (path: string) => readFileSync(path, "utf8");
 const packageJson = JSON.parse(read("package.json")) as { version: string; engines: { node: string }; scripts: Record<string, string> };
