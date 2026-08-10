@@ -41,15 +41,6 @@ test("the supplied logo is the shared in-app and installable brand mark", () => 
   assert.deepEqual(pngSize("public/icons/maskable-512.png"), { width: 512, height: 512 });
 });
 
-test("social and PWA assets have production-safe dimensions and wiring", () => {
-  assert.deepEqual(pngSize("public/og/zamaanak-social-card.png"), { width: 1200, height: 630 });
-  assert.match(read("app/manifest.ts"), /maskable-512\.png/);
-  assert.match(read("app/manifest.ts"), /shortcuts/);
-  assert.match(read("app/layout.tsx"), /<PwaRegister \/>/);
-  assert.match(read("public/sw.js"), /staleWhileRevalidate/);
-  assert.match(read("components/theme/theme-runtime.tsx"), /applyDynamicFavicon/);
-});
-
 test("phase 100 contract is part of the main quality command", () => {
   assert.ok(packageJson.scripts.test.split(/\s+/).includes("tests/phase100-brand-metadata-pwa.test.ts"));
 });

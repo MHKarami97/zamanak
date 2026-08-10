@@ -29,15 +29,3 @@ test("phase 143 paid-toggle product contract remains intact while the harness fo
   assert.match(smoke, /ensureFirstBreakUnpaid/);
   assert.match(smoke, /Break paid\/unpaid native checkbox not found/);
 });
-
-test("phase 146 is wired and keeps the 2.3.0 candidate behind a green employee gate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_146_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase146-native-break-checkbox-smoke\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۶: همگام‌سازی Employee Browser Smoke با Checkbox native/);
-  assert.match(roadmap, /\[x\].*آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

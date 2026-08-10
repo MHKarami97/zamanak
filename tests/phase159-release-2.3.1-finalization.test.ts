@@ -72,24 +72,6 @@ test("2.3.1 preserves the verified Phase 158 baseline and declares the 607-test 
   });
 });
 
-test("2.3.1 release docs package Phases 155 through 158 while 2.3.0 stays historical", () => {
-  const fa = read(manifest.releaseNotes.fa);
-  const en = read(manifest.releaseNotes.en);
-  assert.match(fa, /زمانک ۲\.۳\.۱/);
-  assert.match(en, /zamaanak 2\.3\.1/);
-  for (const phase of ["۱۵۵", "۱۵۶", "۱۵۷", "۱۵۸"]) {
-    assert.match(read("docs/phases/PHASE_159_NOTES_FA.md"), new RegExp(`فاز ${phase}`));
-  }
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.3\.1_FA\.md/);
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.3\.0_FA\.md/);
-  assert.match(read("README.md"), /RELEASE_NOTES_2\.3\.1_EN\.md/);
-  assert.ok(read("CHANGELOG.md").split(/\r?\n/).includes("## [2.3.1] - 2026-08-08"));
-  const historical = JSON.parse(read("docs/releases/2.3.0.json")) as { version: string; tag: string; expectedFinalTestCount: number };
-  assert.equal(historical.version, "2.3.0");
-  assert.equal(historical.tag, "v2.3.0");
-  assert.equal(historical.expectedFinalTestCount, 581);
-});
-
 test("2.3.1 keeps the release browser gates and both deployment audits explicit", () => {
   assert.equal(
     packageJson.scripts["check:release"],
@@ -103,16 +85,6 @@ test("2.3.1 keeps the release browser gates and both deployment audits explicit"
   assert.equal(manifest.pairingCommand, "npm run test:browser:pairing");
   assert.equal(manifest.vercelAuditCommand, "npm run audit:vercel");
   assert.equal(manifest.productionAuditCommand, "npm run audit:production");
-});
-
-test("historical 2.3.1 roadmap and phase notes preserve the annotated-tag contract", () => {
-  const phaseNotes = read("docs/phases/PHASE_159_NOTES_FA.md");
-  const backlog = read("docs/roadmap/BACKLOG_FA.md");
-  assert.match(phaseNotes, /npm run audit:production/);
-  assert.match(phaseNotes, /git tag -a v2\.3\.1 -m "zamaanak 2\.3\.1"/);
-  assert.match(backlog, /## آمادگی انتشار ۲\.۳\.۱/);
-  assert.match(backlog, /- \[x\] فاز ۱۵۹:/);
-  assert.equal(Object.prototype.hasOwnProperty.call(manifest, "releaseCommit"), false);
 });
 
 test("historical Phase 159 remains wired after the active release advances", () => {

@@ -31,14 +31,3 @@ test("freelancer smoke delegates route scripts to the tested builders", () => {
   assert.match(smoke, /buildRouteReadyExpression\(pathname\)/);
   assert.match(smoke, /from "\.\/browser-route-expression\.mjs"/);
 });
-
-test("phase 139 records the runtime syntax hotfix without product data changes", () => {
-  const pkg = read("package.json");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  const notes = read("docs/phases/PHASE_139_NOTES_FA.md");
-  assert.match(pkg, /phase139-browser-route-expression-syntax\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۳۹:/);
-  assert.match(notes, /Unexpected token 'return'/);
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

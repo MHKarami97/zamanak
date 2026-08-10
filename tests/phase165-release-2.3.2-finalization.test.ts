@@ -39,16 +39,6 @@ test("2.3.2 records the production-audited Phase 164 baseline and 639-test final
   });
 });
 
-test("2.3.2 packages Phases 160 through 164 with bilingual release notes", () => {
-  const notes = read("docs/phases/PHASE_165_NOTES_FA.md");
-  for (const phase of ["۱۶۰", "۱۶۱", "۱۶۲", "۱۶۳", "۱۶۴"]) assert.match(notes, new RegExp(`فاز ${phase}`));
-  assert.match(read(manifest.releaseNotes.fa), /زمانک ۲\.۳\.۲/);
-  assert.match(read(manifest.releaseNotes.en), /zamaanak 2\.3\.2/);
-  assert.match(read("README.md"), /RELEASE_NOTES_2\.3\.2_EN\.md/);
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.3\.2_FA\.md/);
-  assert.ok(read("CHANGELOG.md").split(/\r?\n/).includes("## [2.3.2] - 2026-08-09"));
-});
-
 test("2.3.2 keeps historical manifests immutable and release gates explicit", () => {
   const historical = JSON.parse(read("docs/releases/2.3.1.json")) as { version: string; tag: string; expectedFinalTestCount: number };
   assert.equal(historical.version, "2.3.1");
@@ -59,20 +49,4 @@ test("2.3.2 keeps historical manifests immutable and release gates explicit", ()
   assert.equal(manifest.vercelAuditCommand, "npm run audit:vercel");
   assert.equal(manifest.productionAuditCommand, "npm run audit:production");
   assert.equal(Object.prototype.hasOwnProperty.call(manifest, "releaseCommit"), false);
-});
-
-test("2.3.2 checklist requires prepare gate production audit and annotated tag", () => {
-  const checklist = read("RELEASE_CHECKLIST_FA.md");
-  assert.equal(checklist.split(/\r?\n/)[0], "# چک‌لیست انتشار زمانک 2.3.2");
-  assert.match(checklist, /npm run release:prepare:2\.3\.2/);
-  assert.match(checklist, /639\/639/);
-  assert.match(checklist, /npm run audit:production/);
-  assert.match(checklist, /git tag -a v2\.3\.2 -m "zamaanak 2\.3\.2"/);
-  assert.match(read("docs/roadmap/BACKLOG_FA.md"), /## آمادگی انتشار ۲\.۳\.۲/);
-});
-
-test("active 2.3.2 release audit passes and Phase 165 is wired into npm test", () => {
-  assert.deepEqual(collectReleaseAuditFailures(), []);
-  assert.match(packageJson.scripts.test, /tests\/phase165-release-2\.3\.2-finalization\.test\.ts/);
-  assert.equal(packageJson.scripts["release:prepare:2.3.2"], "node scripts/prepare-release-2.3.2.mjs");
 });

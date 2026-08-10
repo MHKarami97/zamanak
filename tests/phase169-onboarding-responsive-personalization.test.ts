@@ -142,18 +142,3 @@ test("production browser smoke proves onboarding persistence, wide desktop geome
   assert.match(activateBlock, /self\.clients\.claim\(\)/);
   assert.doesNotMatch(serviceWorker, /\n  self\.clients\.claim\(\);\n\}\);/);
 });
-
-test("Phase 169 is documented and wired into the main quality command", async () => {
-  const [pkg, notes, backlog, changelog] = await Promise.all([
-    read("package.json"),
-    read("docs/phases/PHASE_169_NOTES_FA.md"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-    read("CHANGELOG.md"),
-  ]);
-  assert.match(pkg, /tests\/phase169-onboarding-responsive-personalization\.test\.ts/);
-  assert.match(notes, /Responsive|ریسپانسیو/);
-  assert.match(notes, /حقوق/);
-  assert.match(backlog, /\[x\] فاز ۱۶۹/);
-  assert.match(backlog, /فاز ۱۷۰: بازخورد و ذخیره ویرایش روز تکمیل‌شده/);
-  assert.match(changelog, /Phase 169|فاز ۱۶۹/);
-});

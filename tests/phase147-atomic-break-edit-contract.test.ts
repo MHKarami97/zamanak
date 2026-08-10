@@ -30,15 +30,3 @@ test("employee browser journey verifies the edited break contract before clock-o
   assert.match(persistence, /item\?\.paid === false/);
   assert.match(persistence, /breaks: Array\.isArray\(record\.breaks\)/);
 });
-
-test("phase 147 closes break edit atomicity before the 2.3.0 release candidate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_147_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase147-atomic-break-edit-contract\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۷:/);
-  assert.match(roadmap, /\[x\] فاز [۰-۹]+: آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

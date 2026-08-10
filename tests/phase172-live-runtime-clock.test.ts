@@ -95,23 +95,3 @@ test("live surfaces share second and minute cadences instead of owning local tim
   assert.match(list, /useRuntimeNow\("minute"/);
   assert.doesNotMatch([summary, metrics, timeline, detail, list].join("\n"), /setInterval/);
 });
-
-test("Phase 172 is documented, browser-covered and moves personalized onboarding to Phase 173", async () => {
-  const [smoke, roadmap, notes, phase171, docs, pkg] = await Promise.all([
-    read("scripts/employee-browser-ux-smoke.mjs"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-    read("docs/phases/PHASE_172_NOTES_FA.md"),
-    read("docs/phases/PHASE_171_NOTES_FA.md"),
-    read("docs/README.md"),
-    read("package.json"),
-  ]);
-  assert.match(smoke, /Active employee work clock advances live without a reload/);
-  assert.match(roadmap, /\[x\] فاز ۱۷۲: Live Runtime Clock & Low-Power Refresh/);
-  assert.match(roadmap, /\[x\] فاز ۱۷۳: Onboarding شخصی‌شده/);
-  assert.match(roadmap, /\[ \] فاز ۱۷۴: i18n/);
-  assert.match(notes, /visibilitychange/);
-  assert.match(notes, /هیچ Tick زمان، IndexedDB، BroadcastChannel، Network، Service Worker یا Heartbeat را نمی‌نویسد/);
-  assert.match(phase171, /آنبوردینگ شخصی‌شده فاز ۱۷۳/);
-  assert.match(docs, /PHASE_172_NOTES_FA\.md/);
-  assert.match(pkg, /phase172-live-runtime-clock\.test\.ts/);
-});

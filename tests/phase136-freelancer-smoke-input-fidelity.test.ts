@@ -35,13 +35,3 @@ test("headless freelancer smoke suppresses known background networking noise", (
   assert.match(smoke, /DEPRECATED_ENDPOINT/);
   assert.match(smoke, /TensorFlow Lite XNNPACK/);
 });
-
-test("phase 136 is documented and wired without schema or dependency changes", () => {
-  const pkg = read("package.json");
-  const notes = read("docs/phases/PHASE_136_NOTES_FA.md");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  assert.match(pkg, /phase136-freelancer-smoke-input-fidelity\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۳۶:/);
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

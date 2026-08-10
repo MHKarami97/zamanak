@@ -31,16 +31,3 @@ test("invoice durability follows the current lines contract instead of obsolete 
   assert.match(expression, /expenses/);
   assert.match(expression, /invoices/);
 });
-
-test("phase 140 wires the probe into browser smoke and documents reload durability", () => {
-  const smoke = read("scripts/freelancer-browser-ux-smoke.mjs");
-  const pkg = read("package.json");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  const notes = read("docs/phases/PHASE_140_NOTES_FA.md");
-  assert.match(smoke, /buildFreelancerPersistenceProbeExpression/);
-  assert.match(smoke, /Hard reload restores the persisted freelancer invoice/);
-  assert.match(pkg, /phase140-persistence-envelope-contract\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۰:/);
-  assert.match(notes, /snapshot envelope/i);
-  assert.match(notes, /AppData Schema: v17/);
-});

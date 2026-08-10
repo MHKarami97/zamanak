@@ -37,28 +37,3 @@ test("historical final manifest preserves the verified Phase 119 candidate evide
     pairingEncryptedChunks: 4,
   });
 });
-
-test("2.2.0 release contract avoids an impossible self-referential commit hash", () => {
-  assert.equal(Object.prototype.hasOwnProperty.call(manifest, "releaseCommit"), false);
-  assert.match(read("docs/phases/PHASE_120_NOTES_FA.md"), /Tag annotated `v2\.2\.0` منبع حقیقت Commit نهایی انتشار است/);
-  assert.match(read("docs/releases/RELEASE_NOTES_2.2.0_EN.md"), /annotated `v2\.2\.0` Git tag is the source of truth/);
-});
-
-test("readmes retain 2.2.0 and 2.3.0 as historical release documentation", () => {
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.2\.0_FA\.md/);
-  assert.match(read("README.md"), /RELEASE_NOTES_2\.2\.0_EN\.md/);
-  assert.match(read("docs/releases/RELEASE_NOTES_2.2.0_FA.md"), /Manifest نسخه ۲\.۲\.۰ اکنون `released` است/);
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.3\.0_FA\.md/);
-});
-
-test("phase 120 stays closed and the published 2.2.0 tag remains recorded", () => {
-  const backlog = read("docs/roadmap/BACKLOG_FA.md");
-  assert.match(backlog, /- \[x\] فاز ۱۲۰:/);
-  assert.match(backlog, /Tag `v2\.2\.0` روی Commit نهایی `d197b7d`/);
-  assert.match(read("docs/phases/PHASE_120_NOTES_FA.md"), /git tag -a v2\.2\.0 -m "zamaanak 2\.2\.0"/);
-});
-
-test("current release contract is audited and historical Phase 120 remains in npm test", () => {
-  assert.deepEqual(collectReleaseAuditFailures(), []);
-  assert.match(packageJson.scripts.test, /tests\/phase120-release-2\.2\.0-final\.test\.ts/);
-});

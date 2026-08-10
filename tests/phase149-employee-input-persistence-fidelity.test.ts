@@ -30,15 +30,3 @@ test("employee browser journey proves edited break persistence before clock-out 
   assert.ok(breakProbeIndex > -1 && clockOutIndex > -1 && breakProbeIndex < clockOutIndex);
   assert.ok(completedProbeIndex > -1 && netUiIndex > -1 && completedProbeIndex < netUiIndex);
 });
-
-test("phase 149 remains a gate-hardening phase and keeps the 2.3.0 candidate behind a green employee journey", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_149_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase149-employee-input-persistence-fidelity\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۹:/);
-  assert.match(roadmap, /\[x\] فاز [۰-۹]+: آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

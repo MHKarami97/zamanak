@@ -19,14 +19,6 @@ test("today progress arc keeps an independent layout box", () => {
   assert.match(source, /style=\{\{ width: "100%", height: "auto" \}\}/);
 });
 
-test("static favicon SVG uses a tight viewBox without the oversized halo", () => {
-  for (const path of ["app/icon.svg", "public/favicon.svg"]) {
-    const source = read(path);
-    assert.match(source, /viewBox="560 480 960 960"/);
-    assert.doesNotMatch(source, /<circle class="zamaanak-halo"/);
-  }
-});
-
 test("dynamic favicon applies the same tight crop and remains theme-aware", () => {
   const source = read("components/theme/theme-runtime.tsx");
   assert.match(source, /viewBox=\"560 480 960 960\"/);

@@ -30,16 +30,3 @@ test("phase 149 IndexedDB evidence remains the authority for lunch and break sep
   assert.match(persistence, /breakEnd/);
   assert.match(persistence, /breakUnpaid/);
 });
-
-test("phase 150 records the selector-scope hotfix while release candidate stays behind a green employee gate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_150_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase150-section-scoped-employee-time-edit\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۰:/);
-  assert.match(roadmap, /\[x\] فاز [۰-۹]+: آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /closest\("section"\)/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

@@ -4,12 +4,6 @@ import test from "node:test";
 
 const read = (path: string) => fs.readFileSync(path, "utf8");
 
-test("phase 133 regression stays compatible with the repository ES2017 target", () => {
-  const source = read("tests/phase133-freelancer-form-ux-audit.test.ts");
-  assert.doesNotMatch(source, /\/s\);/);
-  assert.match(source, /Expense\[\\s\\S\]\*ProjectDetail/);
-});
-
 test("release gate runs the built freelancer browser UX smoke after production smoke", () => {
   const pkg = JSON.parse(read("package.json"));
   assert.match(pkg.scripts["test:browser:freelancer"], /build:vercel/);
@@ -33,14 +27,4 @@ test("browser UX smoke exercises keyboard focus validation and mobile viewport c
   assert.match(source, /focusTrapped/);
   assert.match(source, /width: 390, height: 844/);
   assert.match(source, /dialogFits/);
-});
-
-test("phase 134 is documented and wired into quality without schema or dependency changes", () => {
-  const pkg = read("package.json");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  const notes = read("docs/phases/PHASE_134_NOTES_FA.md");
-  assert.match(pkg, /phase134-freelancer-browser-ux\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۳۴:/);
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
 });

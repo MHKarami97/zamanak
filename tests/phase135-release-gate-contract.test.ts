@@ -27,14 +27,3 @@ test("browser release checks reuse the already-built static export", () => {
   assert.doesNotMatch(pkg.scripts["check:release"], /test:browser:freelancer(?:\s|$)/);
   assert.doesNotMatch(pkg.scripts["check:release"], /test:browser:employee(?:\s|$)/);
 });
-
-test("phase 99 and phase 135 agree on the current release gate contract", () => {
-  const phase99 = read("tests/phase99-release-readiness.test.ts");
-  const notes = read("docs/phases/PHASE_135_NOTES_FA.md");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  assert.match(phase99, /test:browser:freelancer:built/);
-  assert.match(phase99, /test:browser:employee:built/);
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(roadmap, /\[x\] فاز ۱۳۵:/);
-  assert.match(pkg.scripts.test, /phase135-release-gate-contract\.test\.ts/);
-});

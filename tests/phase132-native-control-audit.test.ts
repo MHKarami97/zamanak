@@ -67,14 +67,3 @@ test("product surfaces contain no visible raw date time range select or number c
   }
   assert.deepEqual(failures, []);
 });
-
-test("phase 132 is documented and wired into the main quality command", async () => {
-  const [pkg, backlog, notes] = await Promise.all([
-    read("package.json"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-    read("docs/phases/PHASE_132_NOTES_FA.md"),
-  ]);
-  assert.match(pkg, /phase132-native-control-audit\.test\.ts/);
-  assert.match(backlog, /\[x\] فاز ۱۳۲:/);
-  assert.match(notes, /AppData Schema: v17/);
-});

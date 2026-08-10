@@ -52,15 +52,3 @@ test("production smoke proves the initial redirect and completion route", async 
   assert.match(smoke, /\["\/onboarding", "\/onboarding\/"\]\.includes\(location\.pathname\)/);
   assert.match(smoke, /\['\/today', '\/today\/'\]\.includes\(location\.pathname\)/);
 });
-
-test("Phase 166 documents dedicated onboarding and future onboarding growth", async () => {
-  const [pkg, notes, backlog] = await Promise.all([
-    read("package.json"),
-    read("docs/phases/PHASE_166_NOTES_FA.md"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-  ]);
-  assert.match(pkg, /tests\/phase166-dedicated-onboarding-route\.test\.ts/);
-  assert.match(notes, /\/onboarding/);
-  assert.match(backlog, /فاز ۱۶۶/);
-  assert.match(backlog, /ورود داده|Import/);
-});

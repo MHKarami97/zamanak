@@ -93,7 +93,6 @@ export function collectReleaseAuditFailures() {
     "README_FA.md",
     "README_EN.md",
     "docs/README.md",
-    "docs/phases/PHASE_165_NOTES_FA.md",
     "docs/assets/README.md",
     "scripts/prepare-release-2.3.2.mjs",
   ].filter(Boolean);

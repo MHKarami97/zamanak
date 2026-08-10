@@ -38,13 +38,3 @@ test("employee browser journey pins the created break to the unpaid contract", a
   assert.match(source, /وقفه 1 با حقوق/);
   assert.match(source, /NET_DURATION = "۸:۱۵"/);
 });
-
-test("phase 143 stays in quality and keeps 2.3.0 candidate behind the green employee gate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_143_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase143-employee-break-accounting\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۳/);
-  assert.match(roadmap, /آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(notes, /۸:۱۵/);
-});

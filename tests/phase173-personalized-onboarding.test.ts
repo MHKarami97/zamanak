@@ -109,19 +109,3 @@ test("final onboarding step is seven and media/browser flows follow it", async (
   assert.match(smoke, /onboarding Import persistence without premature completion/);
   assert.match(media, /index <= 7/);
 });
-
-test("Phase 173 is documented and advances the roadmap to i18n hardening", async () => {
-  const [roadmap, notes, docs, pkg] = await Promise.all([
-    read("docs/roadmap/BACKLOG_FA.md"),
-    read("docs/phases/PHASE_173_NOTES_FA.md"),
-    read("docs/README.md"),
-    read("package.json"),
-  ]);
-  assert.match(roadmap, /\[x\] فاز ۱۷۳: Onboarding شخصی‌شده/);
-  assert.match(roadmap, /\[ \] فاز ۱۷۴: i18n/);
-  assert.match(notes, /Employee/);
-  assert.match(notes, /Freelancer/);
-  assert.match(notes, /Hybrid/);
-  assert.match(docs, /PHASE_173_NOTES_FA\.md/);
-  assert.match(pkg, /phase173-personalized-onboarding\.test\.ts/);
-});

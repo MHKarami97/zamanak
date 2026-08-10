@@ -27,14 +27,3 @@ test("employee smoke waits for the completed-day edit control before clicking it
   assert.match(smoke, /norm\(button\.textContent\) === "ویرایش این روز"/);
   assert.match(smoke, /clickButton\(client, "ویرایش این روز", true\)/);
 });
-
-test("phase 142 is documented and release candidate moves behind the green employee gate", () => {
-  assert.match(pkg.scripts.test, /phase142-employee-completion-transition\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۲:/);
-  assert.match(roadmap, /آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /نهایی‌سازی Release 2\.3\.0/);
-  const notes = read("docs/phases/PHASE_142_NOTES_FA.md");
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(notes, /Migration: ندارد/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

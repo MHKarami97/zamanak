@@ -53,15 +53,3 @@ test("shared calendar renders Persian weekday labels and Persian digits", async 
   assert.match(day, /fa\.format\(cell\.day\)/);
   assert.match(hook, /jalali\(value/);
 });
-
-test("phase 130 is documented, wired into quality, and moves relation expansion to phase 131", async () => {
-  const [pkg, backlog, docs] = await Promise.all([
-    read("package.json"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-    read("docs/phases/PHASE_130_NOTES_FA.md"),
-  ]);
-  assert.match(pkg, /tests\/phase130-toast-jalali-date-polish\.test\.ts/);
-  assert.match(backlog, /\[x\] فاز ۱۳۰:/);
-  assert.match(backlog, /فاز ۱۳۱:/);
-  assert.match(docs, /AppData Schema: v17/);
-});

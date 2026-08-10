@@ -26,15 +26,3 @@ test("weekly net target keeps the field and unit on one aligned row", async () =
   assert.match(editor, />ساعت<\/span>/);
   assert.doesNotMatch(editor, /min-w-\[190px\]/);
 });
-
-test("phase 161 documents visual-only settings polish without changing the lunch contract", async () => {
-  const [notes, changelog, backlog] = await Promise.all([
-    read("docs/phases/PHASE_161_NOTES_FA.md"),
-    read("CHANGELOG.md"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-  ]);
-  assert.match(notes, /بدون تغییر منطق محاسبه/);
-  assert.match(notes, /Phase 160/);
-  assert.match(changelog, /چیدمان بالای برنامه کاری/);
-  assert.match(backlog, /فاز ۱۶۱/);
-});

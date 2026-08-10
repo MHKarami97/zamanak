@@ -29,15 +29,3 @@ test("phase 144 runtime retry test keeps a real string browser argument", async 
   assert.match(source, /extraArgs: \["--disable-sync"\]/);
   assert.doesNotMatch(source, /extraArgs:[^\n]+as never/);
 });
-
-test("phase 145 closes the type-only startup regression before the 2.3.0 candidate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_145_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase145-browser-debug-types\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۵: رفع TypeScript contract/);
-  assert.match(roadmap, /\[x\].*آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

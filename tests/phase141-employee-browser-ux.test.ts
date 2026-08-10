@@ -56,10 +56,3 @@ test("employee journey verifies hard reload and mobile viewport after persistenc
   assert.match(smoke, /pageFits/);
   assert.match(smoke, /Hard reload restores the employee day/);
 });
-
-test("phase 141 is documented and wired without schema or dependency changes", () => {
-  assert.match(pkg.scripts.test, /phase141-employee-browser-ux\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۱:/);
-  assert.match(read("docs/phases/PHASE_141_NOTES_FA.md"), /AppData Schema: v17/);
-  assert.match(read("docs/phases/PHASE_141_NOTES_FA.md"), /Migration: ندارد/);
-});

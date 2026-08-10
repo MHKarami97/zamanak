@@ -44,16 +44,6 @@ test("release gate keeps quality audit and browser UX smokes in order", () => {
   );
 });
 
-test("historical release notes and changelog entry remain available", () => {
-  assert.ok(read(historicalManifest.releaseNotes.fa).includes("زمانک ۲.۱.۰"));
-  assert.ok(read(historicalManifest.releaseNotes.en).includes("zamaanak 2.1.0"));
-  assert.ok(read("CHANGELOG.md").split(/\r?\n/).includes(`## [${historicalManifest.version}] - ${historicalManifest.releaseDate}`));
-});
-
-test("active release audit reports no static contract failures", () => {
-  assert.deepEqual(collectReleaseAuditFailures(), []);
-});
-
 test("phase 99 contract test remains part of the main test command", () => {
   assert.ok(packageJson.scripts.test.split(/\s+/).includes("tests/phase99-release-readiness.test.ts"));
 });

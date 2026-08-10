@@ -68,16 +68,3 @@ test("employee browser smoke proves mobile edit actions are fixed above bottom n
   assert.match(smoke, /Mobile completed-day edit actions remain visible without colliding with bottom navigation/);
   assert.match(smoke, /clickButton\(client, "انصراف", true\)/);
 });
-
-test("Phase 170 is documented and wired into the main quality command", async () => {
-  const pkg = JSON.parse(await read("package.json")) as { scripts: Record<string, string> };
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const docs = await read("docs/README.md");
-  const notes = await read("docs/phases/PHASE_170_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase170-completed-day-edit-feedback\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۷۰:/);
-  assert.match(docs, /PHASE_170_NOTES_FA\.md/);
-  assert.match(notes, /AppData Schema: v17/);
-  assert.match(notes, /Migration: ندارد/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

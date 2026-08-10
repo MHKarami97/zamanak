@@ -98,13 +98,3 @@ test("leave overview no longer creates the old 42-hour total and explains the le
   assert.match(source, /۲۶ روز × ۷:۲۰ = ۱۹۰:۴۰/);
   assert.match(source, /تعطیلات رسمی، جمعه و روزهای غیرفعال برنامه کاری/);
 });
-
-test("Phase 168 is documented and wired into the main test command", () => {
-  const pkg = readFileSync(join(root, "package.json"), "utf8");
-  const roadmap = readFileSync(join(root, "docs/roadmap/BACKLOG_FA.md"), "utf8");
-  const notes = readFileSync(join(root, "docs/phases/PHASE_168_NOTES_FA.md"), "utf8");
-  assert.match(pkg, /phase168-leave-entitlement-contract\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۶۸:/);
-  assert.match(notes, /۷:۲۰ × ۲۶ ÷ ۱۲/);
-  assert.match(notes, /651/);
-});

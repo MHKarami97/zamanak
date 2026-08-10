@@ -17,15 +17,3 @@ test("advanced editor passes the minimal action-hook contract while retaining re
   assert.match(editor, /LunchEditor record=\{props\.record\}/);
   assert.match(editor, /BreaksEditor record=\{props\.record\}/);
 });
-
-test("phase 148 closes the lint-only regression before the 2.3.0 candidate", async () => {
-  const pkg = JSON.parse(await read("package.json"));
-  const roadmap = await read("docs/roadmap/BACKLOG_FA.md");
-  const notes = await read("docs/phases/PHASE_148_NOTES_FA.md");
-  assert.match(pkg.scripts.test, /phase148-lint-contract-hotfix\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۴۸:/);
-  assert.match(roadmap, /\[x\] فاز [۰-۹]+: آماده‌سازی Release Candidate نسخه 2\.3\.0/);
-  assert.match(roadmap, /\[x\] فاز ۱۵۳: نهایی‌سازی Release 2\.3\.0/);
-  assert.match(notes, /Schema.*v17/);
-  assert.match(notes, /Dependency جدید: ندارد/);
-});

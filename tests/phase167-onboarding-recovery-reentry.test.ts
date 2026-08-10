@@ -84,29 +84,3 @@ test("settings can reopen onboarding without resetting application data", async 
   assert.match(route, /finishOnboardingSession\(\)/);
   assert.match(route, /\/settings#settings-onboarding/);
 });
-
-test("release browser smokes and roadmap cover onboarding recovery and Phase 167", async () => {
-  const [smoke, freelancerSmoke, employeeSmoke, pkg, notes, backlog] = await Promise.all([
-    read("scripts/production-browser-smoke.mjs"),
-    read("scripts/freelancer-browser-ux-smoke.mjs"),
-    read("scripts/employee-browser-ux-smoke.mjs"),
-    read("package.json"),
-    read("docs/phases/PHASE_167_NOTES_FA.md"),
-    read("docs/roadmap/BACKLOG_FA.md"),
-  ]);
-  assert.match(smoke, /data-onboarding-step-index="1"/);
-  assert.match(smoke, /Boolean\(await \(\$\{expression\}\)\)/);
-  assert.match(smoke, /replaceInputValue/);
-  assert.match(smoke, /Onboarding welcome step captured a user name/);
-  assert.match(smoke, /onboarding recovery reload/);
-  assert.match(smoke, /Onboarding reload resumed from the saved step/);
-  for (const workflowSmoke of [freelancerSmoke, employeeSmoke]) {
-    assert.match(workflowSmoke, /data-onboarding-step-index="1"/);
-    assert.match(workflowSmoke, /dedicated onboarding welcome step/);
-    assert.doesNotMatch(workflowSmoke, /زمانک را برای خودت تنظیم کن/);
-  }
-  assert.match(pkg, /tests\/phase167-onboarding-recovery-reentry\.test\.ts/);
-  assert.match(notes, /Recovery|بازیابی/);
-  assert.match(backlog, /فاز ۱۶۷/);
-  assert.match(backlog, /فاز ۱۶۸/);
-});

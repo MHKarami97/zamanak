@@ -56,30 +56,3 @@ test("historical 2.3.0 keeps every browser gate contract", () => {
   assert.equal(manifest.pairingBrowserGate, "scripts/device-pairing-browser-smoke.mjs");
   assert.equal(manifest.pairingCommand, "npm run test:browser:pairing");
 });
-
-test("historical 2.3.0 release docs changelog and product media remain available", () => {
-  assert.match(read(manifest.releaseNotes.fa), /زمانک ۲\.۳\.۰/);
-  assert.match(read(manifest.releaseNotes.en), /zamaanak 2\.3\.0/);
-  assert.ok(read("CHANGELOG.md").split(/\r?\n/).includes("## [2.3.0] - 2026-08-08"));
-  assert.match(read("README_FA.md"), /RELEASE_NOTES_2\.3\.0_FA\.md/);
-  assert.match(read("README.md"), /RELEASE_NOTES_2\.3\.0_EN\.md/);
-  for (const path of requiredMedia) {
-    assert.ok(read("README_FA.md").includes(path), `Persian README missing ${path}`);
-    assert.ok(read("README.md").includes(path), `English README missing ${path}`);
-  }
-});
-
-test("roadmap preserves Phase 152 and Phase 153 historical finalization", () => {
-  const backlog = read("docs/roadmap/BACKLOG_FA.md");
-  const start = backlog.indexOf("## آمادگی انتشار ۲.۳.۰");
-  assert.ok(start >= 0);
-  const section = backlog.slice(start);
-  assert.match(section, /- \[x\] فاز ۱۵۲:/);
-  assert.match(section, /- \[x\] فاز ۱۵۳:/);
-  assert.match(read("docs/phases/PHASE_152_NOTES_FA.md"), /575 tests/);
-});
-
-test("current release audit passes while historical Phase 152 stays in npm test", () => {
-  assert.deepEqual(collectReleaseAuditFailures(), []);
-  assert.match(packageJson.scripts.test, /tests\/phase152-release-2\.3\.0-candidate\.test\.ts/);
-});

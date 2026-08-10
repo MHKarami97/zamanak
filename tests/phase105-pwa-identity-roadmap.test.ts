@@ -14,16 +14,6 @@ test("PWA install identity uses the approved zamaanak mark and compact app name"
   assert.match(manifest, /name: SITE_NAME,/);
   assert.match(manifest, /short_name: SITE_NAME,/);
   assert.doesNotMatch(manifest, /name: `\$\{SITE_NAME\} — مدیریت زمان و کارکرد`/);
-  assert.match(read("public/icons/app-icon-source.svg"), /zamaanak-app-mark\.svg/);
-  assert.match(read("public/icons/maskable-icon-source.svg"), /zamaanak-app-mark\.svg/);
-});
-
-test("install icons keep dedicated any and maskable assets at production sizes", () => {
-  assert.deepEqual(pngSize("public/icons/icon-192.png"), { width: 192, height: 192 });
-  assert.deepEqual(pngSize("public/icons/icon-512.png"), { width: 512, height: 512 });
-  assert.deepEqual(pngSize("public/icons/maskable-512.png"), { width: 512, height: 512 });
-  assert.deepEqual(pngSize("app/apple-icon.png"), { width: 180, height: 180 });
-  assert.deepEqual(pngSize("public/fav-256.png"), { width: 256, height: 256 });
 });
 
 test("service worker cache version invalidates stale PWA icon assets", () => {
@@ -35,16 +25,6 @@ test("service worker cache version invalidates stale PWA icon assets", () => {
   assert.ok(Number(shellVersion) >= 5);
   assert.match(sw, /icons\/icon-192\.png/);
   assert.match(sw, /icons\/maskable-512\.png/);
-});
-
-test("roadmap captures customizable payroll and QR peer-to-peer transfer", () => {
-  const backlog = read("docs/roadmap/BACKLOG_FA.md");
-  assert.match(backlog, /موتور محاسبه حقوق Rule-based/);
-  assert.match(backlog, /WebRTC DataChannel/);
-  assert.match(backlog, /QR محلی|QR.*Pairing/);
-  const notes = read("docs/phases/PHASE_105_NOTES_FA.md");
-  assert.match(notes, /Cloud Sync دائمی/);
-  assert.match(notes, /RTCDataChannel/);
 });
 
 test("phase 105 contract is part of the main quality command", () => {

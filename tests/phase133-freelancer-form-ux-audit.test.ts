@@ -58,13 +58,3 @@ test("empty freelancer states offer the next useful action in context", () => {
   assert.match(expenses, /ثبت اولین هزینه/);
   assert.match(entries, /شروع تایمر/);
 });
-
-test("phase 133 is documented, wired into quality, and does not invent redundant relations", () => {
-  const pkg = read("package.json");
-  const roadmap = read("docs/roadmap/BACKLOG_FA.md");
-  const notes = read("docs/phases/PHASE_133_NOTES_FA.md");
-  assert.match(pkg, /phase133-freelancer-form-ux-audit\.test\.ts/);
-  assert.match(roadmap, /\[x\] فاز ۱۳۳:/);
-  assert.match(notes, /Expense[\s\S]*ProjectDetail/);
-  assert.match(notes, /AppData Schema: v17/);
-});

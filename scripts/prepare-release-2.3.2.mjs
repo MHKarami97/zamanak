@@ -18,7 +18,6 @@ if (!/^[0-9a-f]{7,40}$/.test(baseline) || baseline === "0000000") {
 
 const targets = [
   "docs/releases/2.3.2.json",
-  "docs/phases/PHASE_165_NOTES_FA.md",
   "RELEASE_CHECKLIST_FA.md",
   "docs/roadmap/BACKLOG_FA.md",
 ];
