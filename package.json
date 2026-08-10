@@ -40,7 +40,6 @@
     "test:browser:employee:built": "node --experimental-strip-types scripts/employee-browser-ux-smoke.mjs",
     "audit:production": "node scripts/remote-production-audit.mjs",
     "audit:vercel": "node scripts/vercel-static-export-contract.mjs",
-    "audit:pages": "node scripts/vercel-static-export-contract.mjs",
     "release:prepare:2.3.2": "node scripts/prepare-release-2.3.2.mjs"
   },
   "dependencies": {

@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: saatyar-ci-${{ github.ref }}
@@ -16,7 +18,7 @@ concurrency:
 
 jobs:
   build:
-    name: Quality and Vercel static export
+    name: Quality and Pages static export
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +26,32 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
       - run: npm test
-      - name: Build the same static export used by Page
+
+      - name: Build the same static export used by Pages
         run: npm run build:pages
+
+      - name: Validate Pages artifact
+        run: npm run validate:artifact
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
