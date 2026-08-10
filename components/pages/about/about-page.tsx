@@ -1,7 +1,5 @@
 import {
   BookOpenCheck,
-  HeartHandshake,
-  UserRound,
   Send,
   ShieldCheck,
   Smartphone,
