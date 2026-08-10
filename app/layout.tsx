@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/vazirmatn/wght.css";
 import { PwaRegister } from "@/app/pwa-register";
-import { zamaanakShell } from "@/components/zamaanak-shell";
+import { ZamaanakShell } from "@/components/zamaanak-shell";
 import { ThemeBootstrap } from "@/components/theme/theme-bootstrap";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SOCIAL_IMAGE_PATH } from "@/lib/site-metadata";
 import "./globals.css";
@@ -59,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="m-0 min-h-screen bg-[var(--page)] font-[Vazirmatn_Variable,Tahoma,sans-serif] font-normal text-[var(--text)] antialiased [font-feature-settings:'ss01'] transition-colors">
         <PwaRegister />
-        <zamaanakShell>{children}</zamaanakShell>
+        <ZamaanakShell>{children}</ZamaanakShell>
       </body>
     </html>
   );

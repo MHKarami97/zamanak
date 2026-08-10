@@ -28,7 +28,7 @@ export function usezamaanakContext() {
   return context;
 }
 
-export function zamaanakShell({ children }: { children: React.ReactNode }) {
+export function ZamaanakShell({ children }: { children: React.ReactNode }) {
   const controller = usezamaanakController();
   const pathname = usePathname() || "/today";
   const { ready, selectedDate, setSelectedDate, data } = controller;
