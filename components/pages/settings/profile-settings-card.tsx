@@ -74,7 +74,7 @@ export function ProfileSettingsCard({
               value={name}
               disabled={!profile.editing}
               maxLength={MAX_NAME_LENGTH}
-              placeholder="مثلاً حامد"
+              placeholder="مثلاً محمد"
               autoComplete="name"
               aria-invalid={profile.editing && !valid}
               onChange={(event) => profile.update({ name: event.target.value })}

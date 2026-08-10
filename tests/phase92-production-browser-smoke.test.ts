@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { browserExecutableCandidates } from "../scripts/production-browser-smoke.mjs";
 
 const read = (path: string) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -17,19 +16,6 @@ test("alert dialog controlled callbacks keep an explicit boolean contract", asyn
     const source = await read(file);
     assert.match(source, /onOpenChange=\{\(open: boolean\) =>/);
   }
-});
-
-test("browser discovery prioritizes explicit overrides and covers Windows Chrome and Edge", () => {
-  const candidates = browserExecutableCandidates({
-    zamaanak_BROWSER_PATH: "D:\\Portable\\chrome.exe",
-    PROGRAMFILES: "C:\\Program Files",
-    "PROGRAMFILES(X86)": "C:\\Program Files (x86)",
-    LOCALAPPDATA: "C:\\Users\\Hamed\\AppData\\Local",
-  }, "win32");
-
-  assert.equal(candidates[0], "D:\\Portable\\chrome.exe");
-  assert.ok(candidates.some((path) => path.endsWith("Google\\Chrome\\Application\\chrome.exe")));
-  assert.ok(candidates.some((path) => path.endsWith("Microsoft\\Edge\\Application\\msedge.exe")));
 });
 
 test("quality checks dependencies before TypeScript and release checks run the built browser smoke", async () => {

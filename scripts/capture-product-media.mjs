@@ -145,8 +145,8 @@ async function captureOnboardingFrames(client, origin) {
     const input = document.querySelector('[data-onboarding-step-index="1"] input');
     if (!(input instanceof HTMLInputElement)) return false;
     const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
-    setter?.call(input, "حامد");
-    input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: "حامد" }));
+    setter?.call(input, "محمد");
+    input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: "محمد" }));
     return true;
   })()`);
   await screenshot(client, "onboarding.png");

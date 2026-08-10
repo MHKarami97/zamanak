@@ -8,7 +8,7 @@ const validBackup = {
   schemaVersion: 3,
   exportedAt: "2026-07-28T10:00:00.000Z",
   settings: {
-    name: "حامد",
+    name: "محمد",
     onboarded: true,
     weeklyMinutes: 2400,
     workDays: 5,
@@ -44,7 +44,7 @@ test("parses backups wrapped in a data envelope", () => {
     data: validBackup,
   });
 
-  assert.equal(parsed.settings.name, "حامد");
+  assert.equal(parsed.settings.name, "محمد");
   assert.equal(isValidAppData(parsed), true);
 });
 

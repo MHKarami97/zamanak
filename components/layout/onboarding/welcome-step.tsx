@@ -32,7 +32,7 @@ export function WelcomeStep({
               data-onboarding-name
               autoFocus
               autoComplete="name"
-              placeholder="مثلاً حامد"
+              placeholder="مثلاً محمد"
               value={settings.name}
               onChange={(event) => setSetting("name", event.target.value)}
               className="h-12 rounded-[14px] border-[var(--dashboard-border)] bg-[var(--surface-2)] px-4 text-sm font-bold"

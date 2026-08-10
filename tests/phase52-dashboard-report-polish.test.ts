@@ -8,7 +8,7 @@ test("greeting follows local day periods and includes the saved name", () => {
   assert.equal(getGreetingPeriod(13), "ظهر");
   assert.equal(getGreetingPeriod(18), "عصر");
   assert.equal(getGreetingPeriod(22), "شب");
-  assert.equal(buildGreeting("حامد", 8), "صبح بخیر، حامد");
+  assert.equal(buildGreeting("محمد", 8), "صبح بخیر، محمد");
 });
 
 test("settings navigation stays sticky on desktop", async () => {

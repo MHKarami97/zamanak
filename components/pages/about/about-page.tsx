@@ -79,7 +79,7 @@ export function AboutPage() {
             ))}
           </div>
           <p className="rounded-xl bg-[var(--accent-soft)] p-3 text-[9px] leading-5 text-[var(--text-muted)]">
-            حمایت مالی کاملاً اختیاری است و هیچ قابلیت اضافه‌ای را باز نمی‌کند. گزارش باگ و پیشنهاد فنی را می‌توانی در GitHub ثبت کنی؛ برای ارتباط مستقیم هم LinkedIn و Telegram در دسترس‌اند.
+            جهت ارتباط با ما می‌توانید از لینک وبسایت mhkarami97.ir بالا استفاده کنید
           </p>
         </div>
       </section>
