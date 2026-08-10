@@ -1,10 +1,10 @@
 "use client";
 
 import { SettingsPage } from "@/components/pages/settings/settings-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 
 export default function SettingsRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   if (!controller.ready) return null;
 
   return (

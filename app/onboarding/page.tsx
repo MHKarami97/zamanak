@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { Onboarding } from "@/components/layout/onboarding";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 
 const SETTINGS_ONBOARDING_PATH = "/settings#settings-onboarding";
 
 export default function OnboardingRoute() {
   const router = useRouter();
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
 
   if (!controller.ready || !controller.onboardingSessionReady) return null;
 

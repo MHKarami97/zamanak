@@ -9,7 +9,7 @@ test("onboarding is a first-class app route instead of a Today overlay", async (
     read("app/onboarding/page.tsx"),
     read("components/zamaanak-shell.tsx"),
   ]);
-  assert.match(page, /usezamaanakContext/);
+  assert.match(page, /useZamaanakContext/);
   assert.match(page, /<Onboarding/);
   assert.match(shell, /onboardingRoute = normalizePathname\(pathname\) === "\/onboarding"/);
   assert.doesNotMatch(shell, /!data\.settings\.onboarded\s*&&\s*\(\s*<Onboarding/);

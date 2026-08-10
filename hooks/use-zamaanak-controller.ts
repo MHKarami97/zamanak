@@ -15,7 +15,7 @@ import { useLiveTimerOwnership } from "./use-live-timer-ownership";
 import { useReportActions } from "./controller/use-report-actions";
 import { useOnboardingSession } from "./use-onboarding-session";
 
-export function usezamaanakController() {
+export function useZamaanakController() {
   const persisted = usePersistedAppData();
   const { data, setData, setToast, storage } = persisted;
   const [selectedDate, setSelectedDateState] = useState(localDateKey());

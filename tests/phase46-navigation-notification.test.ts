@@ -8,7 +8,7 @@ test("route pages import getTabHref from the shared navigation module", async ()
   for (const path of ["app/clients/page.tsx", "app/today/page.tsx"]) {
     const source = await read(path);
     assert.match(source, /import \{ getTabHref \} from "@\/lib\/navigation"/);
-    assert.doesNotMatch(source, /usezamaanakContext, getTabHref/);
+    assert.doesNotMatch(source, /useZamaanakContext, getTabHref/);
   }
 });
 

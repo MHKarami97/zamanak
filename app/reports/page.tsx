@@ -1,10 +1,10 @@
 "use client";
 
 import { ReportsPage } from "@/components/pages/reports/reports-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 
 export default function ReportsRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   if (!controller.ready) return null;
 
   return (

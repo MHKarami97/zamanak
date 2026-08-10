@@ -1,10 +1,10 @@
 "use client";
 
 import { MonthPage } from "@/components/pages/month/month-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 
 export default function MonthRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   if (!controller.ready) return null;
 
   return (

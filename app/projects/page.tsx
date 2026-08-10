@@ -1,10 +1,10 @@
 "use client";
 
 import { ProjectsPage } from "@/components/pages/projects/projects-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 
 export default function ProjectsRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   if (!controller.ready) return null;
 
   return (

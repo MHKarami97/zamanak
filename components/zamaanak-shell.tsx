@@ -16,20 +16,20 @@ import { PwaExperience } from "@/components/pwa/pwa-experience";
 import { UnsavedNavigationProvider } from "@/components/layout/navigation/unsaved-navigation-provider";
 import { RouteGuard } from "@/components/layout/navigation/route-guard";
 import { RouteSync } from "@/components/layout/route-sync";
-import { usezamaanakController } from "@/hooks/use-zamaanak-controller";
+import { useZamaanakController } from "@/hooks/use-zamaanak-controller";
 import { cn } from "@/lib/cn";
 import { normalizePathname } from "@/lib/navigation";
 
-const zamaanakContext = createContext<ReturnType<typeof usezamaanakController> | null>(null);
+const zamaanakContext = createContext<ReturnType<typeof useZamaanakController> | null>(null);
 
-export function usezamaanakContext() {
+export function useZamaanakContext() {
   const context = useContext(zamaanakContext);
-  if (!context) throw new Error("usezamaanakContext must be used within zamaanakShell");
+  if (!context) throw new Error("useZamaanakContext must be used within zamaanakShell");
   return context;
 }
 
 export function ZamaanakShell({ children }: { children: React.ReactNode }) {
-  const controller = usezamaanakController();
+  const controller = useZamaanakController();
   const pathname = usePathname() || "/today";
   const { ready, selectedDate, setSelectedDate, data } = controller;
   const mode = data.settings.mode;

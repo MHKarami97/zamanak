@@ -1,8 +1,8 @@
 "use client";
 import { InvoicesPage } from "@/components/pages/invoices/invoices-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 export default function InvoicesRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   if (!controller.ready) return null;
   return (
     <InvoicesPage

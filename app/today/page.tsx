@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { TodayPage } from "@/components/pages/today/today-page";
-import { usezamaanakContext } from "@/components/zamaanak-shell";
+import { useZamaanakContext } from "@/components/zamaanak-shell";
 import { getTabHref } from "@/lib/navigation";
 
 export default function TodayRoute() {
-  const controller = usezamaanakContext();
+  const controller = useZamaanakContext();
   const router = useRouter();
 
   if (!controller.ready) return null;
