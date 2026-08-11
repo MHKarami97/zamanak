@@ -17,6 +17,7 @@ export const APP_DATA_COLLECTION_FACTORIES = {
   invoices: () => [],
   holidayOverrides: () => [],
   deletedRecords: () => [],
+  dailyTasks: () => ({}),
 } satisfies AppDataCollectionFactories;
 
 export const APP_DATA_COLLECTION_KEYS = Object.freeze(
@@ -61,7 +62,7 @@ export function assertCompleteAppData(value: unknown, label = "AppData"): assert
   }
 
   for (const key of APP_DATA_COLLECTION_KEYS) {
-    if (key === "records") continue;
+    if (key === "records" || key === "dailyTasks") continue;
     if (!Array.isArray(candidate[key])) throw new Error(`${label}.${key} must be an array`);
   }
 }

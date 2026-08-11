@@ -276,6 +276,14 @@ function migrateV16ToV17(value: unknown): unknown {
   };
 }
 
+function migrateV17ToV18(value: unknown): unknown {
+  if (!isObject(value)) return value;
+  return {
+    ...value,
+    dailyTasks: isObject(value.dailyTasks) ? value.dailyTasks : {},
+  };
+}
+
 const migrations: Record<number, (value: unknown) => unknown> = {
   1: migrateV1ToV2,
   2: migrateV2ToV3,
@@ -293,6 +301,7 @@ const migrations: Record<number, (value: unknown) => unknown> = {
   14: migrateV14ToV15,
   15: migrateV15ToV16,
   16: migrateV16ToV17,
+  17: migrateV17ToV18,
 };
 
 export function migrateAppData(value: unknown): MigrationResult {

@@ -53,7 +53,7 @@ export function inspectAppDataContract(value: unknown): AppDataContractDiff {
   }
 
   for (const key of APP_DATA_COLLECTION_KEYS) {
-    if (key === "records" || !Object.prototype.hasOwnProperty.call(candidate, key)) continue;
+    if (key === "records" || key === 'dailyTasks' || !Object.prototype.hasOwnProperty.call(candidate, key)) continue;
     if (!Array.isArray(candidate[key])) {
       invalid.push({ path: key, expected: "array", received: describeValue(candidate[key]) });
     }

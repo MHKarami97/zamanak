@@ -22,6 +22,7 @@ function completeShape(): Record<string, unknown> {
     invoices: [],
     holidayOverrides: [],
     deletedRecords: [],
+    dailyTasks: {},
   };
 }
 

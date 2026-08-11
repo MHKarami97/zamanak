@@ -24,6 +24,7 @@ const expectedKeys = [
   "invoices",
   "holidayOverrides",
   "deletedRecords",
+  "dailyTasks"
 ].sort();
 
 test("AppData contract lists every current top-level key exactly once", () => {
@@ -53,6 +54,7 @@ test("runtime audit reports missing fields before storage or backup code receive
     "invoices",
     "holidayOverrides",
     "deletedRecords",
+    "dailyTasks"
   ]);
   assert.throws(() => assertCompleteAppData(incomplete, "incomplete fixture"), /deletedRecords/);
 });

@@ -6,7 +6,7 @@ import type {
 } from "./device-transfer-types.ts";
 import type { AppData } from "./types.ts";
 
-const arrayKeys = APP_DATA_COLLECTION_KEYS.filter((key) => key !== "records") as Exclude<AppDataCollectionKey, "records">[];
+const arrayKeys = APP_DATA_COLLECTION_KEYS.filter((key) => key !== "records" && key !== "dailyTasks") as Exclude<AppDataCollectionKey, "records">[];
 
 function same(left: unknown, right: unknown): boolean {
   return JSON.stringify(left) === JSON.stringify(right);
@@ -14,6 +14,9 @@ function same(left: unknown, right: unknown): boolean {
 
 function countCollection(data: AppData, key: AppDataCollectionKey): number {
   if (key === "records") return Object.keys(data.records).length;
+  if (key === 'dailyTasks') {
+    return Object.values(data.dailyTasks).reduce((sum, tasks) => sum + tasks.length, 0);
+  }
   return data[key].length;
 }
 

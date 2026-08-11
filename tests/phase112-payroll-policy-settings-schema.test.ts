@@ -10,7 +10,7 @@ import { createPayrollPreset } from "../lib/payroll-policy.ts";
 const read = (path: string) => readFileSync(path, "utf8");
 
 test("schema v17 persists a payroll policy while migrating released v16 data", () => {
-  assert.equal(APP_DATA_SCHEMA_VERSION, 17);
+  assert.equal(APP_DATA_SCHEMA_VERSION, 18);
   const legacy = { ...defaultSettings, payrollPolicy: undefined };
   const migrated = migrateAppData({ schemaVersion: 16, data: { settings: legacy, records: {}, leaves: [], clients: [], projects: [], timeEntries: [], expenses: [], invoices: [], holidayOverrides: [], deletedRecords: [] } }).data;
   assert.equal(migrated.settings.payrollPolicy.baseMode, "monthly-prorated");

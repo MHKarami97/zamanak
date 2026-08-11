@@ -23,6 +23,15 @@ const settingsSchema = z.object({
   mode: z.enum(["employee", "freelancer", "hybrid"]).optional(),
 }).loose();
 
+const dailyTaskSchema = z.object({
+  id: z.string(),
+  date: z.string(),
+  title: z.string().min(1).max(255),
+  description: z.string().optional(),
+  isCompleted: z.boolean().default(false),
+  createdAt: z.string(),
+}).loose();
+
 export const appDataSchema = z.object({
   appName: z.string().optional(),
   schemaVersion: z.number().int().positive().optional(),
@@ -33,6 +42,7 @@ export const appDataSchema = z.object({
   clients: z.array(looseEntity).optional().default([]),
   projects: z.array(looseEntity).optional().default([]),
   timeEntries: z.array(looseEntity).optional().default([]),
+  dailyTasks: z.record(z.string(), z.array(dailyTaskSchema)).optional().default({}),
 }).loose();
 
 export function isValidAppData(value: unknown) {

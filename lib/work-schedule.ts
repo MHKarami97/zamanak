@@ -37,9 +37,9 @@ const jsDayToWeekday: WeekdayKey[] = [
 ];
 
 export function createDefaultWeeklySchedule(
-  defaultStart = "07:30",
-  defaultEnd = "16:15",
-  lunchMinutes = 45,
+  defaultStart = "08:00",
+  defaultEnd = "17:00",
+  lunchMinutes = 60,
 ): Record<WeekdayKey, WorkScheduleDay> {
   return Object.fromEntries(
     weekdayOrder.map((day, index) => [

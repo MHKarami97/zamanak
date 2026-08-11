@@ -22,7 +22,7 @@ test("2.3.2 version lock schema date and tag are aligned", () => {
   assert.equal(manifest.status, "released");
   assert.equal(manifest.nodeEngine, packageJson.engines.node);
   assert.equal(manifest.dataSchemaVersion, 17);
-  assert.equal(APP_DATA_SCHEMA_VERSION, 17);
+  assert.equal(APP_DATA_SCHEMA_VERSION, 18);
   assert.equal(manifest.tag, "v2.3.2");
 });
 

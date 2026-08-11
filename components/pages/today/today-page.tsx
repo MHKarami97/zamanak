@@ -15,7 +15,9 @@ import { TodayAttendanceLog } from "./today-attendance-log";
 import { RecordHealthBanner } from "./record-health-banner";
 import { RecordResetUndo } from "./record-reset-undo";
 import { CompletedDayEditor } from "./completed-day-editor";
+import { DailyTasksEditor } from "./daily-tasks-editor";
 import type { TodayPageProps } from "./types.ts";
+import type { DailyTask } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { useUnsavedNavigation } from "@/components/layout/navigation/unsaved-navigation-provider";
 
@@ -30,6 +32,46 @@ export function TodayPage(props: TodayPageProps) {
     overrides: props.data.holidayOverrides,
   });
   const scheduledDayOff = !holiday.isHoliday && isScheduledDayOff(props.selectedDate, props.data.settings);
+  const mode = props.data.settings.mode || "employee";
+  const todayTasks = props.data.dailyTasks?.[props.selectedDate] || [];
+  const previousIncompleteTasks = Object.values(props.data.dailyTasks || {})
+    .flat()
+    .filter((t: DailyTask) => !t.isCompleted && t.date < props.selectedDate);
+  const handleTasksChange = (newTasks: DailyTask[]) => {
+    props.setData((prev) => ({
+      ...prev,
+      dailyTasks: {
+        ...prev.dailyTasks,
+        [props.selectedDate]: newTasks,
+      },
+    }));
+  };
+
+  const handleMigrateTasks = (tasksToMigrate: DailyTask[]) => {
+    props.setData((prev) => {
+      const updatedDailyTasks = { ...prev.dailyTasks };
+
+      tasksToMigrate.forEach((task) => {
+        if (updatedDailyTasks[task.date]) {
+          updatedDailyTasks[task.date] = updatedDailyTasks[task.date].filter((t) => t.id !== task.id);
+        }
+      });
+
+      const migratedToToday = tasksToMigrate.map((t) => ({
+        ...t,
+        id: crypto.randomUUID(),
+        date: props.selectedDate,
+        createdAt: new Date().toISOString(),
+      }));
+
+      updatedDailyTasks[props.selectedDate] = [...(updatedDailyTasks[props.selectedDate] || []), ...migratedToToday];
+
+      return {
+        ...prev,
+        dailyTasks: updatedDailyTasks,
+      };
+    });
+  };
 
   return (
     <>
@@ -89,6 +131,7 @@ export function TodayPage(props: TodayPageProps) {
         scheduledDayOff={scheduledDayOff}
       />
       <CompletedDayEditor key={`${props.selectedDate}:${props.record.start && props.record.end ? "completed" : "active"}`} {...props} scheduledDayOff={scheduledDayOff} />
+
       {props.editingEntry === "manual" &&
         props.data.settings.mode !== "employee" && (
           <ManualEntryForm {...props} />
@@ -98,6 +141,16 @@ export function TodayPage(props: TodayPageProps) {
       ) : (
         <TodayTimeline {...props} />
       )}
+
+      <DailyTasksEditor
+        date={props.selectedDate}
+        mode={mode}
+        tasks={todayTasks}
+        previousIncompleteTasks={previousIncompleteTasks}
+        onTasksChange={handleTasksChange}
+        onMigrateTasks={handleMigrateTasks}
+      />
+
       <TodayMetrics
         data={props.data}
         record={props.record}

@@ -219,6 +219,7 @@ export type AppData = {
   invoices: Invoice[];
   holidayOverrides: HolidayOverride[];
   deletedRecords: DeletedWorkRecord[];
+  dailyTasks: Record<string, DailyTask[]>;
 };
 
 export type TimerDraft = {
@@ -241,3 +242,12 @@ export type ReportFilter = {
   status: ReportStatusFilter;
 };
 export type StorageInfo = { usage: number; quota: number; persisted: boolean };
+
+export type DailyTask = {
+  id: string;
+  date: string;
+  title: string;
+  description?: string;
+  isCompleted: boolean;
+  createdAt: string;
+};

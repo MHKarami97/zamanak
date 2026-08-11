@@ -32,7 +32,7 @@ test("device transfer payload is versioned and checksum-protected", async () => 
   const { local } = devices();
   const payload = await createDeviceTransferPayload(local, { deviceId: "desktop-1", deviceName: "Laptop" }, "2026-08-07T10:00:00.000Z");
   assert.equal(payload.protocolVersion, 1);
-  assert.equal(payload.appDataSchemaVersion, 17);
+  assert.equal(payload.appDataSchemaVersion, 18);
   assert.equal((await verifyDeviceTransferPayload(payload)).data.settings.name, "لپ‌تاپ");
   const tampered = structuredClone(payload);
   tampered.data.settings.name = "tampered";

@@ -54,6 +54,17 @@ export function normaliseData(value: AppData, defaults: Settings): AppData {
         },
       ]),
     ),
+    dailyTasks: Object.fromEntries(
+      Object.entries(value.dailyTasks ?? {}).map(([date, tasks]) => [
+        date,
+        (Array.isArray(tasks) ? tasks : []).map((task) => ({
+          ...task,
+          title: task.title ?? '',
+          isCompleted: Boolean(task.isCompleted),
+          createdAt: task.createdAt ?? new Date().toISOString(),
+        })),
+      ]),
+    ),
     leaves: value.leaves ?? [],
     clients: (value.clients ?? []).map((client) => ({
       ...client,
