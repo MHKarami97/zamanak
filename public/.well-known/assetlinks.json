@@ -1,0 +1,22 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "mhk.zamaanak",
+      "sha256_cert_fingerprints": [
+        "A6:D5:29:AE:D6:4C:7E:71:4C:86:0C:F3:A3:5C:FB:69:2D:BF:25:27:94:D3:1A:39:95:9C:8C:2D:1A:4B:C7:FC"
+      ]
+    }
+  },
+  {
+    "relation": ["check_validation"],
+    "target": {
+      "namespace": "cafebazaar_twa",
+      "package_name": "mhk.zamaanak",
+      "sha256_cert_fingerprints": [
+        "A6:D5:29:AE:D6:4C:7E:71:4C:86:0C:F3:A3:5C:FB:69:2D:BF:25:27:94:D3:1A:39:95:9C:8C:2D:1A:4B:C7:FC"
+      ]
+    }
+  }
+]
