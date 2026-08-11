@@ -4,7 +4,7 @@ import { CalendarDays, CheckCircle2, Clock3, Coffee, Edit3, Circle } from "lucid
 import { StatusBadge } from "@/components/common/status-badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
-import { duration, faDigits, jalali } from "@/lib/format";
+import { duration, jalali } from "@/lib/format";
 import { getHolidayInfo } from "@/lib/holidays";
 import { getRecordStatus } from "@/lib/record-health";
 import { calc } from "@/lib/time-engine";
