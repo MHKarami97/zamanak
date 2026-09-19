@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { createInitialData } from "../lib/constants.ts";
 import {
@@ -7,8 +6,6 @@ import {
   mergeBackupKeepingCurrent, parseCsvText, parseImportDate,
 } from "../lib/import-wizard/index.ts";
 import type { AppData } from "../lib/types.ts";
-
-const read = (path: string) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
 function withClient(name = "مشتری موجود") {
   const data = createInitialData({ onboarded: true });
