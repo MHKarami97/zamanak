@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "راه‌اندازی اولیه",
   description: "راه‌اندازی اولیه زمانک برای انتخاب فضای کاری، برنامه کاری و تنظیمات ذخیره‌سازی.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function OnboardingLayout({ children }: { children: ReactNode }) {
