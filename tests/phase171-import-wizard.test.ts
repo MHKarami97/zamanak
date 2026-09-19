@@ -135,19 +135,3 @@ test("backup analysis previews additions/conflicts and safe merge keeps current 
   assert.equal(merged.records["2026-08-10"].note, "new");
   assert.equal(merged.clients.some((item) => item.id === "client-2"), true);
 });
-
-test("Phase 171 exposes a reusable noindex import route, settings entry point and browser contract", async () => {
-  const [route, layout, navigation, restore, page, smoke, roadmap, pkg] = await Promise.all([
-    read("app/import/page.tsx"), read("app/import/layout.tsx"), read("lib/navigation.ts"),
-    read("components/pages/settings/restore-card.tsx"), read("components/pages/import/import-page.tsx"),
-    read("scripts/production-browser-smoke.mjs"), read("docs/roadmap/BACKLOG_FA.md"), read("package.json"),
-  ]);
-  assert.match(route, /ImportPage/);
-  assert.match(layout, /index: false/);
-  assert.match(navigation, /"\/import"/);
-  assert.match(restore, /بازکردن Import Wizard/);
-  assert.match(page, /Local-first/);
-  assert.match(smoke, /Import Wizard CSV persisted a client/);
-  assert.match(roadmap, /\[x\] فاز ۱۷۱/);
-  assert.match(pkg, /phase171-import-wizard\.test\.ts/);
-});

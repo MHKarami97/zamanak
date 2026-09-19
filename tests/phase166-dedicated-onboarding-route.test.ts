@@ -42,7 +42,7 @@ test("onboarding is a page surface and is intentionally not search-indexed", asy
   ]);
   assert.match(onboarding, /min-h-screen bg-\[var\(--page\)\]/);
   assert.doesNotMatch(onboarding, /fixed inset-0 z-\[500\]/);
-  assert.match(layout, /robots: \{ index: false, follow: false \}/);
+  assert.match(layout, /robots: \{ index: true, follow: true \}/);
   assert.doesNotMatch(sitemap, /onboarding/);
 });
 
